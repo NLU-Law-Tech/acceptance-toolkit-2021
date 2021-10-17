@@ -60,14 +60,14 @@ def get_accounts(defendant,data):
     return _get_subjects(object=defendant,data=data,search_key='bankAccountsTagInfo')
 
 
-def claen_breakline(label,ignore_keys=[]):
+def clean_breakline(label,ignore_keys=[]):
     if type(label) is dict:
         for k,v in label.items():
             if k not in ignore_keys:
-                label[k] = claen_breakline(v,ignore_keys)
+                label[k] = clean_breakline(v,ignore_keys)
     elif type(label) is list:
         for i in range(len(label)):
-            label[i] = claen_breakline(label[i],ignore_keys)
+            label[i] = clean_breakline(label[i],ignore_keys)
     elif type(label) is str:
         return label.replace("\r\n","").replace("\n","")
     else:
@@ -102,7 +102,7 @@ def createVerdict(data):
             account = accounts
         )
         verdictLabel = verdictLabel.dict()
-        labels.append(claen_breakline(verdictLabel))
+        labels.append(clean_breakline(verdictLabel))
 
     #
     verdictInput = VerdictInput(
@@ -148,7 +148,7 @@ def createIndictment(data):
             account = accounts
         )
         label = label.dict()
-        labels.append(claen_breakline(label))
+        labels.append(clean_breakline(label))
 
     #
     input_data = IndictmentInput(
@@ -176,7 +176,7 @@ if __name__ == '__main__':
         logger.info(f"f_name: {file_name} f_path: {file}")
         data = open(file,'r',encoding='utf-8').read()
         data = json.loads(data)
-        data = claen_breakline(data,ignore_keys=['unlabelDoc'])
+        data = clean_breakline(data,ignore_keys=['unlabelDoc'])
         if format_type == 'verdict':
             processed_data = createVerdict(data)
             processed_data = processed_data.dict()
