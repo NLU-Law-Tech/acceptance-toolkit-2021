@@ -1,11 +1,11 @@
+#coding=utf-8
 from glob import glob
 from loguru import logger
 import argparse
-import os
-from typing import List
-from pydantic import BaseModel
+import os,sys
 import json
-# from VerdictCut import extract_fact
+from data_model.verdict import Verdict, VerdictLabel, VerdictInput
+from data_model.indictment   import Indictment, IndictmentLabel, IndictmentInput
 
 # args
 parser = argparse.ArgumentParser()
@@ -37,7 +37,6 @@ def get_defendants(data):
             continue
     return list(set(defendants))
 
-
 def _get_subjects(object,data,search_key):
     data = data[search_key] 
     all_license_plate_numbers = data.keys()
@@ -64,33 +63,8 @@ def save(data,path):
     with open(path,'w',encoding='utf-8') as f:
         json.dump(data,f,ensure_ascii=False)
 
-# data_model
-class VerdictLabel(BaseModel):
-    name:str
-    units:List[str]
-    positions:List[str]
-    laws:List[str]
-    identities:List[str]
-    license_plate_number:List[str]
-    phone_number:List[str]
-    account:List[str]
-
-class VerdictInput(BaseModel):
-    Type:str
-    JAccused:str
-    JMain:str
-    JFull:str
-    JLaw:str
-    JRela:str
-    JRla:str
-
-class Verdict(BaseModel):
-    input:VerdictInput
-    label:List[VerdictLabel]
-
 def createVerdict(data):
     defendants = get_defendants(data)
-
     labels = []
     for defendant in defendants:
         # 單位, 職稱, 法條, 身份 並非這一次驗收目標**不進行轉換**
@@ -134,6 +108,49 @@ def createVerdict(data):
 
     return verdict
 
+def createIndictment(data):
+    defendants = get_defendants(data)
+    labels = []
+    for defendant in defendants:
+        # 單位, 職稱, 法條, 身份 並非這一次驗收目標**不進行轉換**
+        units = []
+        positions = []
+        laws = []
+        identities= []
+        # 車牌 手機 銀行帳戶
+        license_plate_numbers = get_license_plate_numbers(defendant,data)
+        phone_numbers = get_phone_numbers(defendant,data)
+        accounts = get_accounts(defendant,data)
+        label = IndictmentLabel(
+            name = defendant,
+            units = units,
+            positions = positions,
+            laws = laws,
+            identities = identities,
+            license_plate_number = license_plate_numbers,
+            phone_number = phone_numbers,
+            account = accounts
+        )
+        labels.append(label)
+
+    #
+    input_data = IndictmentInput(
+        Type = 'TransferDoc2',
+        SPSuspect = data['unlabelDoc'],
+        SFact = '',
+        Evidence = '',
+        Law = '',
+        FullText =  data['unlabelDoc']
+    )
+
+    verdict = Indictment(
+        input = input_data,
+        label = labels
+    )
+
+    return verdict
+
+
 if __name__ == '__main__':
     files = glob(os.path.join(args.in_dir,"*.json"))
     format_type = args.to_format
@@ -145,7 +162,10 @@ if __name__ == '__main__':
         if format_type == 'verdict':
             processed_data = createVerdict(data)
             processed_data = processed_data.dict()
-            # logger.debug(processed_data)
+            save(processed_data,os.path.join(args.out_dir,file_name))
+        elif format_type == 'indictment':
+            processed_data = createIndictment(data)
+            processed_data = processed_data.dict()
             save(processed_data,os.path.join(args.out_dir,file_name))
         else:
             raise Exception('`format_type` error')
