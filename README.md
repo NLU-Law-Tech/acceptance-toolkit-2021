@@ -6,10 +6,11 @@
 
 ## II. 合併與後處理
 ```sh
-usage: eval_api_converter.py [-h] [-i IN_DIR] [-o OUT_DIR] {verdict,indictment}
+usage: eval_api_converter.py [-h] [-i IN_DIR] [-o OUT_DIR]
+                             {verdict,indictment,transferdoc}
 
 positional arguments:
-  {verdict,indictment}
+  {verdict,indictment,transferdoc}
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -18,11 +19,15 @@ optional arguments:
 ```
 #### 標註資料轉**判決書**輸入
 ```sh
-python eval_api_converter.py -i='test_data' verdict
+python eval_api_converter.py -i 'test_data' verdict
 ```
 #### 標註資料轉**起訴書**輸入
 ```sh
-python eval_api_converter.py -i='test_data' indictment
+python eval_api_converter.py -i 'test_data' indictment
+```
+#### 標註資料轉**移送書**輸入
+```sh
+python eval_api_converter.py -i 'test_data' transferdoc
 ```
 ## III. 辨識率分數計算
 ```
