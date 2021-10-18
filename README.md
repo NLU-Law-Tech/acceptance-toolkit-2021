@@ -35,7 +35,7 @@ optional arguments:
 ```
 ### 呼叫API與算分
 ```sh
-python eval_api_scorer.py -s http://140.120.13.250:16005
+python eval_api_scorer.py -s http://xxx
 ```
 ### 指標平均分數
 ```json
