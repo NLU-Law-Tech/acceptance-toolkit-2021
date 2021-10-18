@@ -1,2 +1,3 @@
 out_data/
 *__py*/
+.api_res_log/
