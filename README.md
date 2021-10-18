@@ -6,24 +6,23 @@
 
 ## 合併與後處理
 ```sh
-usage: eva_api_converter.py [-h] [-in_dir IN_DIR] [-out_dir OUT_DIR]
-                            {verdict,indictment}
+usage: eval_api_converter.py [-h] [-i IN_DIR] [-o OUT_DIR] {verdict,indictment}
 
 positional arguments:
   {verdict,indictment}
 
 optional arguments:
   -h, --help            show this help message and exit
-  -in_dir IN_DIR
-  -out_dir OUT_DIR
+  -i IN_DIR, --in_dir IN_DIR
+  -o OUT_DIR, --out_dir OUT_DIR
 ```
 ### 標註資料轉**判決書**輸入
 ```sh
-python eva_api_converter.py -in_dir='test_data' verdict
+python eval_api_converter.py -i='test_data' verdict
 ```
 ### 標註資料轉**起訴書**輸入
 ```sh
-python eva_api_converter.py -in_dir='test_data' indictment
+python eval_api_converter.py -i='test_data' indictment
 ```
 ## 辨識率分數計算
 ...
