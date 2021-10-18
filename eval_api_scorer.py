@@ -12,11 +12,9 @@ from utils import save
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--in_dir',default='./out_data')
-parser.add_argument('-s','--server',default=None)
+parser.add_argument('server')
 args = parser.parse_args()
 logger.debug(args)
-assert args.server is not None
-
 
 class EvalApiScorer():
     def __init__(self,server,keys=['license_plate_number','account','phone_number']):

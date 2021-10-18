@@ -30,17 +30,19 @@ python eval_api_converter.py -i 'test_data' indictment
 python eval_api_converter.py -i 'test_data' transferdoc
 ```
 ## III. 辨識率分數計算
-```
-usage: eval_api_scorer.py [-h] [-i IN_DIR] [-s SERVER]
+```sh
+usage: eval_api_scorer.py [-h] [-i IN_DIR] server
+
+positional arguments:
+  server
 
 optional arguments:
   -h, --help            show this help message and exit
   -i IN_DIR, --in_dir IN_DIR
-  -s SERVER, --server SERVER
 ```
 #### 呼叫API與算分
 ```sh
-python eval_api_scorer.py -s http://xxx
+python eval_api_scorer.py http://xxx
 ```
 #### 指標平均分數
 ```json
