@@ -55,5 +55,5 @@ if __name__ == '__main__':
         data = open(file,'r',encoding='utf-8').read()
         data = json.loads(data)
         scorer.eval(data)
-    logger.info(scorer.compute())
+    logger.info(f"*** AVG score ***\n{json.dumps(scorer.compute())}")
         

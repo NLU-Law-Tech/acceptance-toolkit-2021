@@ -39,5 +39,5 @@ python eval_api_scorer.py -s http://140.120.13.250:16005
 ```
 ### 指標平均分數
 ```json
-{'license_plate_number': {'prec': 0.3333333333333333, 'recall': 0.3333333333333333, 'f1': 0.3333333333333333}, 'account': {'prec': 0.0, 'recall': 0.0, 'f1': 0.0}, 'phone_number': {'prec': 0.0, 'recall': 0.0, 'f1': 0.0}})
+{"license_plate_number": {"prec": 0.3333333333333333, "recall": 0.3333333333333333, "f1": 0.3333333333333333}, "account": {"prec": 0.0, "recall": 0.0, "f1": 0.0}, "phone_number": {"prec": 0.0, "recall": 0.0, "f1": 0.0}}
 ```
