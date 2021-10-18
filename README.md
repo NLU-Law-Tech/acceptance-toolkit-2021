@@ -25,4 +25,19 @@ python eval_api_converter.py -i='test_data' verdict
 python eval_api_converter.py -i='test_data' indictment
 ```
 ## 辨識率分數計算
-...
+```
+usage: eval_api_scorer.py [-h] [-i IN_DIR] [-s SERVER]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i IN_DIR, --in_dir IN_DIR
+  -s SERVER, --server SERVER
+```
+### 呼叫API與算分
+```sh
+python eval_api_scorer.py -s http://140.120.13.250:16005
+```
+```json
+// 平均分數
+{'license_plate_number': {'prec': 0.3333333333333333, 'recall': 0.3333333333333333, 'f1': 0.3333333333333333}, 'account': {'prec': 0.0, 'recall': 0.0, 'f1': 0.0}, 'phone_number': {'prec': 0.0, 'recall': 0.0, 'f1': 0.0}})
+```
