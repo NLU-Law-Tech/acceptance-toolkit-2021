@@ -38,7 +38,7 @@ def createVerdict(data):
     labels = _createLabels(data,VerdictLabel)
     verdictInput = VerdictInput(
         Type = 'CourtVerdict',
-        JAccused = ','.join(defendants),
+        JAccused = '、'.join(defendants),
         JMain = '' ,
         JFull = data['unlabelDoc'],
         JLaw = '',
