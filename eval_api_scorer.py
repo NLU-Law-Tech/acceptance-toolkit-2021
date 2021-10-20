@@ -1,3 +1,4 @@
+from posixpath import join
 from typing import List
 import requests
 from glob import glob
@@ -101,6 +102,10 @@ class EvalApiScorer():
             for metric in ['prec','recall','f1']:
                 final_score[k][metric] = final_score[k][metric]/self.len
         
+        # save final socer 
+        with open(os.path.join(self.save_response_dir,'avg_score.json'),'w',encoding='utf-8') as f:
+            json.dump(final_score,f,ensure_ascii=False,indent=4)
+
         return final_score
         
         
