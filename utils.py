@@ -58,4 +58,4 @@ def clean_breakline(label,ignore_keys=[]):
 
 def save(data,path):
     with open(path,'w',encoding='utf-8') as f:
-        json.dump(data,f,ensure_ascii=False)
+        json.dump(data,f,ensure_ascii=False,indent=4)
