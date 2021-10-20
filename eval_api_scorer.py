@@ -8,7 +8,7 @@ from loguru import logger
 import urllib.parse
 from collections import defaultdict
 import copy
-import time
+import datetime
 from utils import save
 
 parser = argparse.ArgumentParser()
@@ -45,7 +45,7 @@ class EvalApiScorer():
         self.len = 0
 
         # save response
-        self.save_response_dir = f'./.api_res_log/{int(time.time())}'
+        self.save_response_dir = f'./.api_res_log/{datetime.datetime.now()}'
         os.makedirs(self.save_response_dir,exist_ok=True)
 
         self.eval_idv_writer = CsvWirter(os.path.join(self.save_response_dir,'eval_idv.csv'))
