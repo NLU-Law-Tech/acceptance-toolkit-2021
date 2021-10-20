@@ -56,6 +56,9 @@ class EvalApiScorer():
         return r.json()
     
     def eval_idv(self,score,log_name):
+        """
+        處理個人f1分數並保存至csv
+        """
         self.idv_score = defaultdict(lambda:{})
         for key in self.keys:
             for p_score in score[key]['_details']:
@@ -97,6 +100,7 @@ class EvalApiScorer():
         for k,v in final_score.items():
             for metric in ['prec','recall','f1']:
                 final_score[k][metric] = final_score[k][metric]/self.len
+        
         return final_score
         
         
